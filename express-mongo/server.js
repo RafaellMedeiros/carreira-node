@@ -1,13 +1,8 @@
 import http from 'http';
+import app from './src/app.js';
 
 const PORT = 3000;
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, {'content-type': 'text/plain'})
-    res.write('Hello World')
-    res.end()
-})
-
-server.listen(PORT, () => {
-    console.log('Conexão iniciada');
+app.listen(PORT, () => {
+    console.log('Servidor iniciado');
 })
