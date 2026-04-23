@@ -5,6 +5,7 @@ const app = express()
 app.use(express.json())
 
 const database = await conectaNaDatabase()
+console.log(await database.collection('admin').findOne());
 const livros = [
     {
         id: 1,
