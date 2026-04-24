@@ -1,34 +1,21 @@
 import express from 'express'
 import conectaNaDatabase from './config/dbConnect.js'
 
+import livros from './models/livros.js'
 const app = express()
 app.use(express.json())
 
-const database = await conectaNaDatabase()
-console.log(await database.collection('admin').findOne());
-const livros = [
-    {
-        id: 1,
-        titulo: 'O Senhor dos Anéis',
-        autor: 'J.R.R. Tolkien'
-    },
-    {
-        id: 2,
-        titulo: 'Harry Potter e a Pedra Filosofal',
-        autor: 'J.K. Rowling'
-    }
-]
+const conexao = await conectaNaDatabase()
 
-const buscarLivroPorId = (id) => {
-    return livros.find(livro => livro.id === Number(id))
-}
 
 app.get('/', (req, res) => {
     res.send('Ola Home')
 })
 
-app.get('/livros', (req, res) => {
-    res.status(200).json(livros)
+app.get('/livros', async (req, res) => {
+    const listaLivros = await livros.find();
+
+    res.status(200).json(listaLivros)
 });
 
 app.post('/livro', (req, res) => {
