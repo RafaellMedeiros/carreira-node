@@ -1,12 +1,8 @@
 import express from 'express'
-import conectaNaDatabase from './config/dbConnect.js'
 
 import livros from './models/livros.js'
 const app = express()
 app.use(express.json())
-
-const conexao = await conectaNaDatabase()
-
 
 app.get('/', (req, res) => {
     res.send('Ola Home')
