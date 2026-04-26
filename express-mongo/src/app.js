@@ -1,25 +1,14 @@
 import express from 'express'
 
 import livros from './models/livros.js'
+import router from './routes/index.js'
+
 const app = express()
-app.use(express.json())
+
+app.route(router(app))
 
 app.get('/', (req, res) => {
     res.send('Ola Home')
-})
-
-app.get('/livros', async (req, res) => {
-    const listaLivros = await livros.find();
-
-    res.status(200).json(listaLivros)
-});
-
-app.post('/livro', (req, res) => {
-    const { titulo, autor } = req.body
-    const id = livros.length + 1
-    const livro = { id, titulo, autor }
-    livros.push(livro)
-    res.status(201).send('Livro adicionado com sucesso')
 })
 
 app.get('/livro/:id', (req, res) => {
