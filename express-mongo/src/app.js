@@ -1,38 +1,24 @@
-import express from 'express'
+import express from "express";
+import conectaNaDatabase from "./config/dbConnect.js";
+import routes from "./routes/index.js";
 
-import livros from './models/livros.js'
-import router from './routes/index.js'
+const conexao = await conectaNaDatabase();
 
-const app = express()
+conexao.on("error", (erro) => {
+  console.error("erro de conexão", erro);
+});
 
-app.route(router(app))
-
-app.get('/', (req, res) => {
-    res.send('Ola Home')
+conexao.once("open", () => {
+  console.log("Conexao com o banco feita com sucesso");
 })
 
-app.get('/livro/:id', (req, res) => {
-    const { id } = req.params
-    const livro = buscarLivroPorId(id)
-    if (livro) {
-        res.status(200).json(livro)
-    } else {
-        res.status(404).send('Livro não encontrado')
-    }
-})
+const app = express();
+routes(app);
 
-app.put('/livro/:id', (req, res) => {
-    const { id } = req.params
-    const { titulo, autor } = req.body
-    const livro = buscarLivroPorId(id)
-    if (livro) {
-        livro.titulo = titulo
-        livro.autor = autor
-        res.status(200).json(livro)
-    } else {
-        res.status(404).send('Livro não encontrado')
-    }
-})
+app.delete("/livros/:id", (req, res) => {
+  const index = buscaLivro(req.params.id);
+  livros.splice(index, 1);
+  res.status(200).send("livro removido com sucesso");
+});
 
-
-export default app
+export default app;

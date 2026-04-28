@@ -1,21 +1,21 @@
 {
-  "name": "express-mongo",
+  "name": "3266-express-mongo",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "nodemon": "^3.1.14"
-  },
   "dependencies": {
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "mongoose": "^9.5.0"
+    "dotenv": "^16.3.1",
+    "express": "^4.18.1",
+    "mongodb": "^5.7.0",
+    "mongoose": "^7.3.4",
+    "nodemon": "^3.0.1"
   }
 }

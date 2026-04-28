@@ -1,7 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose, { mongo } from "mongoose";
 
-const conectarAoBanco = async (stringConexao) => {
-    await mongoose.connect(stringConexao);
+async function conectaNaDatabase() {
+  mongoose.connect(process.env.DB_CONNECTION_STRING);
+  return mongoose.connection;
 };
 
-export default conectarAoBanco;
+export default conectaNaDatabase;
