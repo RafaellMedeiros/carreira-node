@@ -1,9 +1,10 @@
 import express from 'express'
+import { UserController } from '../controllers/userController.js'
 
 const router = express.Router()
 
 router
-    .get('/user/:id', (req, res) => { res.send('Bateu em User ID') })
-    .get('/users', (req, res) => { res.send('Bateu só em users') })
+    .post('/user', UserController.create)
+    .get('/users', UserController.list)
 
 export default router
