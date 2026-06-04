@@ -1,15 +1,29 @@
+import BooksRepository from "../service/booksRepository.js"
+
+
 export const getBooks = (req, res) => {
-    res.send('Olá getBooks')
+    const books = BooksRepository.getAll()
+    return res.json(books)
 }
 
 export const updateBooks = (req, res) => {
-    res.send('Olá updateBooks')
+    const { id } = req.params
+    const { name, img } = req.body
+
+    BooksRepository.update(id, { name, img })
+    return res.status(204).send()
 }
 
 export const deleteBooks = (req, res) => {
-    res.send('Olá deleteBooks')
+    const { id } = req.params
+    
+    BooksRepository.delete(id)
+    return res.status(204).send()
 }
 
 export const createBooks = (req, res) => {
-    res.send('Olá createBooks')
+    const { name, img } = req.body
+
+    BooksRepository.create({ name, img })
+    return res.status(201).json({ message: 'Livro criado com sucesso' })
 }
