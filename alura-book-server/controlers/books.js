@@ -3,12 +3,15 @@ import BooksRepository from "../service/booksRepository.js"
 
 export const getBooks = (req, res) => {
     const books = BooksRepository.getAll()
+    console.log('Chamando getBooks');
     return res.json(books)
 }
 
 export const updateBooks = (req, res) => {
     const { id } = req.params
     const { name, img } = req.body
+
+    
 
     BooksRepository.update(id, { name, img })
     return res.status(204).send()
