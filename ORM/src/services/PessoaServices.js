@@ -4,6 +4,12 @@ class PessoaService extends Services {
   constructor() {
     super("Pessoa");
   }
+
+  async pegaMatriculaPorEstudante(id) {
+    const estudante = await super.pegaUmPorId(id);
+    const listaMatriculas = await estudante.getAulaMatriculadas();
+    return listaMatriculas;
+  }
 }
 
 module.exports = PessoaService;
