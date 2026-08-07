@@ -1,4 +1,4 @@
-const dataSorce = require("../models");
+const dataSorce = require("../database/models");
 
 
 class Services {
