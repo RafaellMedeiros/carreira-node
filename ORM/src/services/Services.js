@@ -34,6 +34,10 @@ class Services {
   async excluiRegistro(id) {
     return this.model.destroy({ where: { id: id } });
   }
+
+  async pegaRegistrosPorEscopo (escopo) {
+    return this.model.scope(escopo).findAll();
+  }
 }
 
 module.exports = Services;
