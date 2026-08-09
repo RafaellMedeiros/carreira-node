@@ -37,10 +37,7 @@ class Controller {
       const novoRegistroCriado = await this.serviceName.criaRegistro(dadosParaCriacao);
       return res.status(200).json(novoRegistroCriado);
     } catch (error) {
-      res.status(500).json({
-        message: "Problemas internos",
-        error
-      });
+      res.status(500).json({ message: error.message });
     }
   }
 

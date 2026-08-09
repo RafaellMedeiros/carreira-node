@@ -1,4 +1,7 @@
 "use strict";
+const ehValido = require("../../utils/cpfEhValidoHelper.js");
+
+
 const {
   Model
 } = require("sequelize");
@@ -10,15 +13,38 @@ module.exports = (sequelize, DataTypes) => {
       });
       Pessoa.hasMany(models.Matricula, {
         foreignKey: "estudante_id",
-        // scope: { status: 'matriculado' },
+        scope: { status: "matriculado" },
         as: "aulasMatriculadas"
       });
     }
   }
   Pessoa.init({
-    nome: DataTypes.STRING,
-    email: DataTypes.STRING,
-    cpf: DataTypes.STRING,
+    nome: {
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args: [3, 30],
+          msg: "o campo nome deve ter no mínimo 3 caracteres"
+        }
+      }
+    },  
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          args: true,
+          msg: "formato do email inválido"
+        }
+      }
+    },
+    cpf: {
+      type: DataTypes.STRING,
+      validate: {
+        cpfEhValido: (cpf) => {
+          if (!ehValido(cpf)) throw new Error("numero de CPF inválido");
+        }
+      }
+    },
     ativo: DataTypes.BOOLEAN,
     role: DataTypes.STRING
   }, {
