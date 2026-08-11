@@ -19,6 +19,10 @@ class Services {
     });
   }
 
+  async pegaUm(where) {
+    return await this.model.findOne({ where });
+  }
+
   async criaRegistro(dadosDoRegistro) {
     return this.model.create(dadosDoRegistro);
   }

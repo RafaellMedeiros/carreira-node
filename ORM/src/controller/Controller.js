@@ -1,3 +1,5 @@
+const converteIdHelper = require("../utils/converteIdHelper.js");
+
 class Controller {
   serviceName;
 
@@ -18,9 +20,25 @@ class Controller {
   }
 
   async pegaUmPorId(req, res) {
+    const { id } = req.params;
     try {
-      const { id } = req.params;
       const registro = await this.serviceName.pegaUmPorId(Number(id));
+      res.status(200).json(registro);
+      
+    } catch (error) {
+      res.status(500).json({
+        message: "Problemas internos",
+        error
+      });
+    }
+  }
+
+  async pegaUmRegistro(req, res) {
+    const { ...params } = req.params;
+    console.log(params);
+    const where = converteIdHelper(params);
+    try {
+      const registro = await this.serviceName.pegaUmPorId(where);
       res.status(200).json(registro);
       
     } catch (error) {
