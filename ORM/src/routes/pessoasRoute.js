@@ -16,5 +16,7 @@ router.delete("/pessoas/:id", (req, res) => pessoaController.excluir(req, res));
 router.get("/pessoas/:id/matriculas", (req, res) => matriculaController.pegarTodos(req, res));
 router.post("/pessoas/:id/matriculas", (req, res) => matriculaController.criaNovo(req, res));
 router.get("/pessoas/:estudanteId/matriculas/:id", (req, res) => matriculaController.pegaUmRegistro(req, res));
+router.get("/pessoas/:estudante_id/matriculas/confirmadas", (req, res) => matriculaController.pegaMatriculasPorEstudante(req, res));
+router.get("/pessoas/matriculas/lotadas", (req, res) => matriculaController.pegaCursosLotados(req, res));
 
 module.exports = router;

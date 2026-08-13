@@ -9,8 +9,8 @@ class Services {
     this.model = dataSorce[modelName];
   }
 
-  async pegaTodos() {
-    return await this.model.findAll(); 
+  async pegaTodos(where = {}) {
+    return await this.model.findAll({ where: { ...where }}); 
   }
 
   async pegaUmPorId(id) {
@@ -37,6 +37,10 @@ class Services {
 
   async excluiRegistro(id) {
     return this.model.destroy({ where: { id: id } });
+  }
+
+  async pegaEContaRegistros(options) {
+    return this.model.findAndCountAll({ ...options });
   }
 
   async pegaRegistrosPorEscopo (escopo) {
