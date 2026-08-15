@@ -35,7 +35,7 @@ import swaggerJsDoc from "swagger-jsdoc";
  *           description: Title of the book
  *         author:
  *           type: string
- *           descripton: Name of the author of the book
+ *           descripton: Name of the author of the books
  *         ISBN:
  *           type: string
  *           descripton: ISBN of the book
