@@ -1,12 +1,16 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable camelcase */
+import db from '../db/dbconfig.js';
+
 class Autor {
-  static db;
-
-  static configurarDB(db) {
-    this.db = db;
-  }
-
-  constructor({ id, nome, nacionalidade, created_at, updated_at }) {
-    this.id = id;
+  constructor({
+    id,
+    nome,
+    nacionalidade,
+    created_at,
+    updated_at,
+  }) {
+    this.id = id || null;
     this.nome = nome;
     this.nacionalidade = nacionalidade;
     this.created_at = created_at || new Date().toISOString();
@@ -14,31 +18,38 @@ class Autor {
   }
 
   static async pegarAutores() {
-    return this.db.select('*').from('autores').orderBy('nome', 'asc');
+    return db.select('*').from('autores');
   }
 
   static async pegarPeloId(id) {
-    const resultado = await this.db.select('*').from('autores').where({ id });
+    const resultado = await db.select('*').from('autores').where({ id });
     return resultado[0];
   }
 
   async criar() {
-    const resultado = await Autor.db('autores').insert(this, '*');
-    return resultado[0];
+    const novoAutor = {
+      nome: this.nome,
+      nacionalidade: this.nacionalidade,
+      created_at: this.created_at,
+      updated_at: this.updated_at,
+    };
+    return db('autores').insert(novoAutor);
   }
 
   async atualizar(id) {
     // o update retorna a quantidade de rows atualizados e não o objeto do registro atualizado
-    await Autor.db('autores')
+    await db('autores')
       .where({ id })
       .update({ ...this, updated_at: new Date().toISOString() });
 
-    return Autor.db.select('*').from('autores').where({ id });
+    return db.select('*').from('autores').where({ id });
   }
 
   static async excluir(id) {
     // o del retorna a quantidade de rows deletados
-    await this.db('autores').where({ id }).del();
+    return db('autores')
+      .where({ id })
+      .del();
   }
 
   async salvar() {
@@ -51,10 +62,6 @@ class Autor {
     }
     const resultado = await this.criar();
     return resultado;
-  }
-
-  static async pegarLivrosPorAutor(autorId) {
-    return this.db('livros').where({ autor_id: autorId });
   }
 }
 
