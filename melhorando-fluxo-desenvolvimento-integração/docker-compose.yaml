@@ -1,5 +1,3 @@
-version: '3.4'
-
 services:
   dev:
     build: .
@@ -11,7 +9,8 @@ services:
     volumes:
       - ./:/app:cached
     depends_on:
-      - db
+      db:
+        condition: service_healthy
   test:
     build: .
     container_name: livraria_api_test
@@ -20,9 +19,9 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - ./:/app:cached  
+      - ./:/app:cached
   db:
-    image: postgres
+    image: postgres:16
     container_name: livraria_db
     environment:
       - POSTGRES_USER=postgres
@@ -32,6 +31,11 @@ services:
       - "5432:5432"
     volumes:
       - database:/var/lib/postgresql/data
-  
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
 volumes:
    database:
