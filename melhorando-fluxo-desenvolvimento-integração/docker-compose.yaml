@@ -8,6 +8,7 @@ services:
       - "3000:3000"
     volumes:
       - ./:/app:cached
+      - /app/node_modules
     depends_on:
       db:
         condition: service_healthy
@@ -20,6 +21,7 @@ services:
       - "4000:4000"
     volumes:
       - ./:/app:cached
+      - /app/node_modules
   db:
     image: postgres:16
     container_name: livraria_db
