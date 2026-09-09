@@ -52,6 +52,19 @@ describe('GET em /autores', () => {
         done();
       });
   });
+  it('Deve retornar uma lista de livros', (done) => {
+    const autorId = 1;
+    chai.request(app)
+      .get(`/autores/${autorId}/livros`)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('autor');
+        expect(res.body).to.have.property('livros');
+        expect(res.body.livros).to.be.an('array');
+        done();
+      });
+  });
 });
 
 describe('POST em /autores', () => {
@@ -149,21 +162,6 @@ describe('DELETE em /autores', () => {
         expect(res.status).to.equal(404);
         expect(res.body).to.have.property('message')
           .eql(`Autor com id ${idAutor} não encontrado`);
-        done();
-      });
-  });
-});
-
-describe('GET em /autores/:id/livros', () => {
-  it('Deve listar livros e autores', (done) => {
-    const idAutor = 1;
-    chai.request(app)
-      .get(`/autores/${idAutor}/livros`)
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.have.property('autor');
-        expect(res.body).to.have.property('livros');
         done();
       });
   });

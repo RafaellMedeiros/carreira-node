@@ -14,7 +14,6 @@ module.exports = {
     'import/extensions': 0,
     'prefer-destructuring': 0,
     'no-underscore-dangle': 0,
-    'linebreak-style': ['error', 'windows'],
   },
   overrides: [
     {

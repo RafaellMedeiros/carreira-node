@@ -1,6 +1,0 @@
-{
-  "legacyWatch": true,
-  "delay": "500",
-  "watch": ["src", "server.js", ".env"],
-  "ext": "js,json"
-}
