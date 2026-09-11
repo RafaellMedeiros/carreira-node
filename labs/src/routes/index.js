@@ -1,8 +1,12 @@
-import express from 'express';
-import taskRoutes from './taskRoutes.js';
+import express from 'express'
+import product from './product.js'
+
 
 const routes = (app) => {
-    app.use(express.json(), taskRoutes);
+  app.use(
+    express.json(),
+    product
+  )
 }
 
-export default routes;
+export default routes
