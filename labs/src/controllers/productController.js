@@ -5,7 +5,15 @@ const products = [
   {
     id: 1,
     name: 'coca'
-  }
+  },
+  {
+    id: 2,
+    name: 'doce'
+  },
+  {
+    id: 3,
+    name: 'bolo'
+  },
 ]
 
 export default class ProductController {
@@ -37,5 +45,9 @@ export default class ProductController {
 
   static deleteProduct(req, res) {
     res.status(200).json({ message: 'GET PRODUCT' })
+  }
+
+  static getAll(req, res) {
+    res.status(200).json({ products })
   }
 }
